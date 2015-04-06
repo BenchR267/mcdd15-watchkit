@@ -49,10 +49,7 @@ class Bus {
                 
                 var item = WatchItem.fromDictionary(data)
                 
-                if !WKInterfaceDevice.currentDevice().addCachedImageWithData(item.bild, name: "\(item.titel.hash)") {
-                    WKInterfaceDevice.currentDevice().removeAllCachedImages()
-                    WKInterfaceDevice.currentDevice().addCachedImageWithData(item.bild, name: "\(item.titel.hash)")
-                }
+                
                 
                 println(item.titel)
                 
@@ -67,4 +64,11 @@ class Bus {
     }
     
     
+}
+
+private func addImageForItemToCache(item: WatchItem) {
+    if !WKInterfaceDevice.currentDevice().addCachedImageWithData(item.bild, name: "\(item.titel.hash)") {
+        WKInterfaceDevice.currentDevice().removeAllCachedImages()
+        WKInterfaceDevice.currentDevice().addCachedImageWithData(item.bild, name: "\(item.titel.hash)")
+    }
 }

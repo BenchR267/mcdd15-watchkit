@@ -113,21 +113,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         switch request {
         case "allItems":
-            var items = fetchItemsFromDB()
-            var itemsToSend = [[String:AnyObject]]()
-            for item in items {
-                itemsToSend.append(item.mapToWatchItem().convertToDictionary())
-            }
             
-            reply(["response": itemsToSend])
+            WatchKitHandler.getAllItems { response in
+                reply(["response": response])
+            }
             
         case "newItem":
             var itemDictionary = userInfo["parameter"] as? [String: AnyObject]
             
             if let dic = itemDictionary {
-                WatchKitHandler.addNewItem(dic, completion: { response in
+                WatchKitHandler.addNewItem(dic) { response in
                     reply(["response": response])
-                })
+                }
             }
             
         default:

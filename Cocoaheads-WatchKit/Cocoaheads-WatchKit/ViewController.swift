@@ -12,56 +12,13 @@
 import UIKit
 import CoreData
 
-let ITEMSCHANGEDNOTIFICATION = "Items has been changed.."
-
-var icons = ["1-adobe",
-    "1-circle",
-    "1-desktop",
-    "1-office",
-    "1-star",
-    "1-start",
-    "camera",
-    "chrome",
-    "digsby",
-    "down",
-    "email",
-    "firefox",
-    "folder",
-    "gmail",
-    "ie",
-    "illustrator",
-    "indesign",
-    "maps",
-    "music",
-    "notes",
-    "opera",
-    "photoshop",
-    "power",
-    "preview",
-    "recycle",
-    "screenshot",
-    "slideshow",
-    "spreadsheet",
-    "task",
-    "toolbox",
-    "wmp",
-    "writing"]
-
-func randomImage() -> UIImage {
-    var index = Int(Int(arc4random()) % icons.count)
-    return UIImage(named: icons[index] + ".png")!
-}
-
-
-var managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
-
 class MainTableViewController: UITableViewController {
     
     var items: [Item] = [Item]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.barTintColor = UIColor.colorWith(65, g: 131, b: 215, a: 1)
+        navigationController?.navigationBar.barTintColor = UIColor(red: 65.0/255.0, green: 131.0/255.0, blue: 215.0/255.0, alpha: 1)
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         items = fetchItemsFromDB()
@@ -69,10 +26,13 @@ class MainTableViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "itemsChanged:", name: ITEMSCHANGEDNOTIFICATION, object: nil)
     }
     
+    // This is called when the Notification is posted
     func itemsChanged(notification: NSNotification) {
         items = fetchItemsFromDB()
         tableView.reloadData()
     }
+    
+    // MARK: - Table View DataSource
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -83,6 +43,8 @@ class MainTableViewController: UITableViewController {
         cell.item = items[indexPath.row]
         return cell
     }
+    
+    // MARK - Table View Delegate
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
@@ -136,14 +98,7 @@ class MainTableViewController: UITableViewController {
 
 }
 
-func fetchItemsFromDB() -> [Item] {
-    var request = NSFetchRequest(entityName: "Item")
-    var erg = managedObjectContext.executeFetchRequest(request, error: nil) as [Item]
-    erg.sort { $0.titel < $1.titel }
-    return erg
-}
-
-
+// The Table View Cell in the Controller
 class DefaultTableViewCell: UITableViewCell {
     
     @IBOutlet weak var pictureImageView: UIImageView!
@@ -162,71 +117,5 @@ class DefaultTableViewCell: UITableViewCell {
         }
     }
 }
-
-extension Item {
-    
-    var image: UIImage {
-        get{
-            return UIImage(data: bild) ?? UIImage()
-        }
-        set{
-            bild = UIImagePNGRepresentation(newValue)
-        }
-    }
-    
-    var color: UIColor {
-        get{
-            return NSKeyedUnarchiver.unarchiveObjectWithData(farbe) as? UIColor ?? UIColor.blackColor()
-        }
-        set{
-            farbe = NSKeyedArchiver.archivedDataWithRootObject(newValue)
-        }
-    }
-    
-    func mapToWatchItem() -> WatchItem {
-        
-        var watchItem = WatchItem()
-        watchItem.titel = titel
-        watchItem.bild = bild
-        watchItem.datum = datum
-        watchItem.farbe = farbe
-        
-        return watchItem
-    }
-}
-
-extension WatchItem {
-    
-    func saveAsItem() -> Item {
-        var item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as Item
-        item.titel = titel
-        item.bild = bild
-        item.datum = datum
-        return item
-    }
-}
-
-extension UIColor {
-    
-    class func random() -> UIColor {
-        let redValue = Float(rand() % 255) / 255
-        let greenValue = Float(rand() % 255) / 255
-        let blueValue = Float(rand() % 255) / 255
-        return UIColor(red: CGFloat(redValue), green: CGFloat(greenValue), blue: CGFloat(blueValue), alpha: 1)
-    }
-    
-    class func colorWith(r: CGFloat, g: CGFloat, b: CGFloat, a: Int) -> UIColor {
-        var redValue = CGFloat(r/255.0)
-        var greenValue = CGFloat(g/255.0)
-        var blueValue = CGFloat(b/255.0)
-        return UIColor(red: CGFloat(redValue), green: CGFloat(greenValue), blue: CGFloat(blueValue), alpha: 1)
-    }
-    
-}
-
-
-
-
-
 
 

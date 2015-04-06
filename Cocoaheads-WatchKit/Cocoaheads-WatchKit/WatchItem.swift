@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Benjamin Herzog. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class WatchItem: NSObject {
     
@@ -33,6 +33,24 @@ class WatchItem: NSObject {
         newWatchItem.datum = dictionary["datum"] as NSDate
         newWatchItem.farbe = dictionary["farbe"] as NSData
         return newWatchItem
+    }
+    
+    var image: UIImage {
+        get{
+            return UIImage(data: bild) ?? UIImage()
+        }
+        set{
+            bild = UIImagePNGRepresentation(newValue)
+        }
+    }
+    
+    var color: UIColor {
+        get{
+            return NSKeyedUnarchiver.unarchiveObjectWithData(farbe) as? UIColor ?? UIColor.blackColor()
+        }
+        set{
+            farbe = NSKeyedArchiver.archivedDataWithRootObject(newValue)
+        }
     }
     
 }

@@ -23,5 +23,16 @@ class WatchKitHandler {
         completion(response: newItem.mapToWatchItem().convertToDictionary())
     }
     
+    class func getAllItems(completion: (response: AnyObject) -> ()) {
+        
+        var items = fetchItemsFromDB()
+        var itemsToSend = [[String:AnyObject]]()
+        for item in items {
+            itemsToSend.append(item.mapToWatchItem().convertToDictionary())
+        }
+        
+        completion(response: itemsToSend)
+    }
+    
     
 }
