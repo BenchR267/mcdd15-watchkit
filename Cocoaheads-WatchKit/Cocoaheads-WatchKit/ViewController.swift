@@ -52,10 +52,12 @@ func randomImage() -> UIImage {
     return UIImage(named: icons[index] + ".png")!
 }
 
+
+var managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
+
 class MainTableViewController: UITableViewController {
     
     var items: [Item] = [Item]()
-    var managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +81,6 @@ class MainTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("default") as DefaultTableViewCell
         cell.item = items[indexPath.row]
-        cell.backgroundColor = UIColor.random()
         return cell
     }
     
@@ -102,13 +103,6 @@ class MainTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
         return "Löschen"
     }
-    
-    func fetchItemsFromDB() -> [Item] {
-        var request = NSFetchRequest(entityName: "Item")
-        var erg = managedObjectContext.executeFetchRequest(request, error: nil) as [Item]
-        erg.sort { $0.titel < $1.titel }
-        return erg
-    }
 
     // MARK: - IBActions
     
@@ -117,12 +111,13 @@ class MainTableViewController: UITableViewController {
         
         var okAction = UIAlertAction(title: "Ok", style: .Default) { action in
             // Speicher neuen Datensatz
-            var newItem = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: self.managedObjectContext) as Item
+            var newItem = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as Item
             newItem.titel = (alert.textFields?.first as? UITextField)?.text ?? ""
             newItem.datum = NSDate()
             newItem.image = randomImage()
-            self.managedObjectContext.save(nil)
-            self.items = self.fetchItemsFromDB()
+            newItem.color = UIColor.random()
+            managedObjectContext.save(nil)
+            self.items = fetchItemsFromDB()
             self.tableView.reloadData()
         }
         
@@ -141,6 +136,14 @@ class MainTableViewController: UITableViewController {
 
 }
 
+func fetchItemsFromDB() -> [Item] {
+    var request = NSFetchRequest(entityName: "Item")
+    var erg = managedObjectContext.executeFetchRequest(request, error: nil) as [Item]
+    erg.sort { $0.titel < $1.titel }
+    return erg
+}
+
+
 class DefaultTableViewCell: UITableViewCell {
     
     @IBOutlet weak var pictureImageView: UIImageView!
@@ -154,6 +157,8 @@ class DefaultTableViewCell: UITableViewCell {
             let dateF = NSDateFormatter()
             dateF.dateFormat = "dd.MM.yyyy HH:mm:SS"
             dateLabel.text = dateF.stringFromDate(item?.datum ?? NSDate())
+            
+            backgroundColor = item?.color
         }
     }
 }
@@ -169,6 +174,36 @@ extension Item {
         }
     }
     
+    var color: UIColor {
+        get{
+            return NSKeyedUnarchiver.unarchiveObjectWithData(farbe) as? UIColor ?? UIColor.blackColor()
+        }
+        set{
+            farbe = NSKeyedArchiver.archivedDataWithRootObject(newValue)
+        }
+    }
+    
+    func mapToWatchItem() -> WatchItem {
+        
+        var watchItem = WatchItem()
+        watchItem.titel = titel
+        watchItem.bild = bild
+        watchItem.datum = datum
+        watchItem.farbe = farbe
+        
+        return watchItem
+    }
+}
+
+extension WatchItem {
+    
+    func saveAsItem() -> Item {
+        var item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as Item
+        item.titel = titel
+        item.bild = bild
+        item.datum = datum
+        return item
+    }
 }
 
 extension UIColor {
@@ -186,4 +221,12 @@ extension UIColor {
         var blueValue = CGFloat(b/255.0)
         return UIColor(red: CGFloat(redValue), green: CGFloat(greenValue), blue: CGFloat(blueValue), alpha: 1)
     }
+    
 }
+
+
+
+
+
+
+

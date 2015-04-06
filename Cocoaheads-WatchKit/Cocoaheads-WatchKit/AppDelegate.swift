@@ -109,8 +109,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication!, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]!, reply: (([NSObject : AnyObject]!) -> Void)!) {
         
-        NSNotificationCenter.defaultCenter().postNotificationName(ITEMSCHANGEDNOTIFICATION, object: nil)
+        var request = userInfo["request"] as? String ?? ""
         
+        switch request {
+        case "allItems":
+            var items = fetchItemsFromDB()
+            var itemsToSend = [[String:AnyObject]]()
+            for item in items {
+                itemsToSend.append(item.mapToWatchItem().convertToDictionary())
+            }
+            
+            reply(["response": itemsToSend])
+            
+        case "newItem":
+            var itemDictionary = userInfo["parameter"] as? [String: AnyObject]
+            
+            if let dic = itemDictionary {
+                let newWatchItem = WatchItem.fromDictionary(dic)
+                newWatchItem.bild = UIImagePNGRepresentation(randomImage())
+                var newItem = newWatchItem.saveAsItem()
+                newItem.color = UIColor.random()
+                managedObjectContext?.insertObject(newItem)
+                managedObjectContext?.save(nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(ITEMSCHANGEDNOTIFICATION, object: nil)
+                reply(["response": newItem.mapToWatchItem().convertToDictionary()])
+            }
+            
+        default:
+            break
+        }
     }
 
 }

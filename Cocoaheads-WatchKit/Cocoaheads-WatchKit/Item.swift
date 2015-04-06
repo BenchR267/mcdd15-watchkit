@@ -1,5 +1,5 @@
 //
-//  Item.swift
+//  Cocoaheads_WatchKit.swift
 //  Cocoaheads-WatchKit
 //
 //  Created by Benjamin Herzog on 06.04.15.
@@ -11,8 +11,9 @@ import CoreData
 
 class Item: NSManagedObject {
 
-    @NSManaged var titel: String
     @NSManaged var bild: NSData
     @NSManaged var datum: NSDate
+    @NSManaged var farbe: NSData
+    @NSManaged var titel: String
 
 }
