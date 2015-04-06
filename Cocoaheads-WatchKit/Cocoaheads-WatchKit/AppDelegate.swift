@@ -125,14 +125,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var itemDictionary = userInfo["parameter"] as? [String: AnyObject]
             
             if let dic = itemDictionary {
-                let newWatchItem = WatchItem.fromDictionary(dic)
-                newWatchItem.bild = UIImagePNGRepresentation(randomImage())
-                var newItem = newWatchItem.saveAsItem()
-                newItem.color = UIColor.random()
-                managedObjectContext?.insertObject(newItem)
-                managedObjectContext?.save(nil)
-                NSNotificationCenter.defaultCenter().postNotificationName(ITEMSCHANGEDNOTIFICATION, object: nil)
-                reply(["response": newItem.mapToWatchItem().convertToDictionary()])
+                WatchKitHandler.addNewItem(dic, completion: { response in
+                    reply(["response": response])
+                })
             }
             
         default:
