@@ -26,17 +26,20 @@ class MainMenüController: WKInterfaceController {
         presentTextInputControllerWithSuggestions(vorschläge, allowedInputMode: .Plain) {
             results in
             
-            let newItem = WatchItem()
-            newItem.titel = results.first as String
-            newItem.datum = NSDate()
-            
-            Bus.addNewItem(newItem, completion: { success in
+            if results != nil && results.count > 0 {
+                let newItem = WatchItem()
+                newItem.titel = results.first as String
+                newItem.datum = NSDate()
                 
-                if !success {
+                Bus.addNewItem(newItem, completion: { success in
                     
-                }
-                
-            })
+                    if !success {
+                        
+                    }
+                    
+                })
+            }
+            
         }
         
     }
