@@ -12,6 +12,8 @@
 import UIKit
 import CoreData
 
+let ITEMSCHANGEDNOTIFICATION = "Items has been changed.."
+
 var icons = ["1-adobe",
     "1-circle",
     "1-desktop",
@@ -61,6 +63,13 @@ class MainTableViewController: UITableViewController {
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         items = fetchItemsFromDB()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "itemsChanged:", name: ITEMSCHANGEDNOTIFICATION, object: nil)
+    }
+    
+    func itemsChanged(notification: NSNotification) {
+        items = fetchItemsFromDB()
+        tableView.reloadData()
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

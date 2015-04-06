@@ -106,6 +106,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func application(application: UIApplication!, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]!, reply: (([NSObject : AnyObject]!) -> Void)!) {
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(ITEMSCHANGEDNOTIFICATION, object: nil)
+        
+    }
 
 }
 
