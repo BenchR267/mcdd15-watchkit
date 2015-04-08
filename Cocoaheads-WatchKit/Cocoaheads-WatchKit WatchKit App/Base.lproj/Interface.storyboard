@@ -63,6 +63,15 @@
                             </items>
                         </table>
                     </items>
+                    <menu key="menu" id="7sc-jU-rLB">
+                        <items>
+                            <menuItem title="Löschen" icon="block" id="kn5-G6-T8s">
+                                <connections>
+                                    <action selector="pressedDeleteButton" destination="AgC-eL-Hgc" id="ZeY-JV-vgO"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="table" destination="sxw-sw-Zfi" id="H1H-KB-eac"/>
                         <outlet property="warnLabel" destination="mzA-6S-rkn" id="34L-6q-qCv"/>

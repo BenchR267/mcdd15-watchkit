@@ -30,20 +30,6 @@ class MainMenüController: WKInterfaceController {
     
 }
 
-class InterfaceController2: WKInterfaceController {
-    override func awakeWithContext(context: AnyObject?) {
-        
-    }
-    override func willActivate() {
-        
-    }
-    override func didDeactivate() {
-        
-    }
-    
-    override func table(table: WKInterfaceTable, didSelectRowAtIndex rowIndex: Int) {  }
-}
-
 class InterfaceController: WKInterfaceController {
 
     var items: [WatchItem]!
@@ -57,6 +43,8 @@ class InterfaceController: WKInterfaceController {
         // Load the items
         reloadAllItems()
     }
+    
+    
     
     func reloadAllItems() {
         Bus.fetchItems({ items in
@@ -98,6 +86,9 @@ class InterfaceController: WKInterfaceController {
         }
     }
 
+    @IBAction func pressedDeleteButton() {
+        
+    }
 }
 
 

@@ -204,6 +204,10 @@ func application(application: UIApplication,
 
 ^ Code kann über embedded Frameworks geteilt werden. (Nur für neue Apps sinnvoll, weil sonst zu großes Refactoring)
 
+^ Im Asset Katalog können unterschiedliche Bilder für beide Modelle angegeben werden.
+
+^ Interface kann über Size Classes unterschiedlich gestaltet werden.
+
 ---
 
 # Xcode

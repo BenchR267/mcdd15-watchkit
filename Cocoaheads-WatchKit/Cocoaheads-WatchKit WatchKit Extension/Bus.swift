@@ -22,10 +22,7 @@ class Bus {
                 var allItems = data.map { WatchItem.fromDictionary($0) }
                 
                 for item in allItems {
-                    if !WKInterfaceDevice.currentDevice().addCachedImageWithData(item.bild, name: "\(item.titel.hash)") {
-                        WKInterfaceDevice.currentDevice().removeAllCachedImages()
-                        WKInterfaceDevice.currentDevice().addCachedImageWithData(item.bild, name: "\(item.titel.hash)")
-                    }
+                    addImageForItemToCache(item)
                 }
                 
                 completion(items: allItems)
