@@ -57,7 +57,7 @@ class InterfaceController: WKInterfaceController {
             self.table.setRowTypes(rowTypes)
             
             for element in enumerate(items) {
-                var row = self.table.rowControllerAtIndex(element.index) as TableRow
+                var row = self.table.rowControllerAtIndex(element.index) as! TableRow
                 row.item = element.element
             }
             
@@ -69,7 +69,7 @@ class InterfaceController: WKInterfaceController {
                 self.warnLabel.setHidden(true)
             }
             
-            var row = self.table.rowControllerAtIndex(self.items.count) as ActionRow
+            var row = self.table.rowControllerAtIndex(self.items.count) as! ActionRow
             row.action = "Hinzufügen"
         })
     }
@@ -124,7 +124,7 @@ func addNewElementInController(controller: WKInterfaceController, completion: (s
         
         if results != nil && results.count > 0 {
             let newItem = WatchItem()
-            newItem.titel = results.first as String
+            newItem.titel = results.first as! String
             newItem.datum = NSDate()
             
             Bus.addNewItem(newItem, completion: { success in

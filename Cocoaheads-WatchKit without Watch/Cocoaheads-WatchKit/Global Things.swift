@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-var managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
+var managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
 
 let ITEMSCHANGEDNOTIFICATION = "Items has been changed.."
 
@@ -52,7 +52,7 @@ func randomImage() -> UIImage {
 
 func fetchItemsFromDB() -> [Item] {
     var request = NSFetchRequest(entityName: "Item")
-    var erg = managedObjectContext.executeFetchRequest(request, error: nil) as [Item]
+    var erg = managedObjectContext.executeFetchRequest(request, error: nil) as! [Item]
     erg.sort { $0.titel < $1.titel }
     return erg
 }

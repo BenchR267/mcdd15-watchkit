@@ -38,7 +38,7 @@ class Bus {
     class func addNewItem(item: WatchItem, completion: (Bool) -> ()) {
         
         var userInfo = ["request": "newItem", "parameter": item.convertToDictionary()]
-        WKInterfaceController.openParentApplication(userInfo) { reply, error in
+        WKInterfaceController.openParentApplication(userInfo as [NSObject : AnyObject]) { reply, error in
             
             var response: AnyObject? = reply?["response"]
             

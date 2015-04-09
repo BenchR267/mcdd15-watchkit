@@ -28,10 +28,10 @@ class WatchItem: NSObject {
     
     class func fromDictionary(dictionary: [String : AnyObject]) -> WatchItem {
         var newWatchItem = WatchItem()
-        newWatchItem.titel = dictionary["titel"] as String
-        newWatchItem.bild = dictionary["bild"] as NSData
-        newWatchItem.datum = dictionary["datum"] as NSDate
-        newWatchItem.farbe = dictionary["farbe"] as NSData
+        newWatchItem.titel = dictionary["titel"] as! String
+        newWatchItem.bild = dictionary["bild"] as! NSData
+        newWatchItem.datum = dictionary["datum"] as! NSDate
+        newWatchItem.farbe = dictionary["farbe"] as! NSData
         return newWatchItem
     }
     

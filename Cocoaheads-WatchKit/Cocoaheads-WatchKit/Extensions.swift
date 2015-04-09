@@ -45,7 +45,7 @@ extension Item {
 extension WatchItem {
     
     func saveAsItem() -> Item {
-        var item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as Item
+        var item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as! Item
         item.titel = titel
         item.bild = bild
         item.datum = datum

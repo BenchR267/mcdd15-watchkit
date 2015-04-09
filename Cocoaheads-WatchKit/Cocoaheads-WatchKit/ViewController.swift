@@ -39,7 +39,7 @@ class MainTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("default") as DefaultTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("default") as! DefaultTableViewCell
         cell.item = items[indexPath.row]
         return cell
     }
@@ -73,7 +73,7 @@ class MainTableViewController: UITableViewController {
         
         var okAction = UIAlertAction(title: "Ok", style: .Default) { action in
             // Speicher neuen Datensatz
-            var newItem = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as Item
+            var newItem = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as! Item
             newItem.titel = (alert.textFields?.first as? UITextField)?.text ?? ""
             newItem.datum = NSDate()
             newItem.image = randomImage()
