@@ -37,7 +37,6 @@
 		E63855011AD29115006CE900 /* opera.png in Resources */ = {isa = PBXBuildFile; fileRef = E63854E11AD29115006CE900 /* opera.png */; };
 		E63855021AD29115006CE900 /* photoshop.png in Resources */ = {isa = PBXBuildFile; fileRef = E63854E21AD29115006CE900 /* photoshop.png */; };
 		E63855031AD29115006CE900 /* power.png in Resources */ = {isa = PBXBuildFile; fileRef = E63854E31AD29115006CE900 /* power.png */; };
-		E63855041AD29115006CE900 /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = E63854E41AD29115006CE900 /* preview.png */; };
 		E63855051AD29115006CE900 /* recycle.png in Resources */ = {isa = PBXBuildFile; fileRef = E63854E51AD29115006CE900 /* recycle.png */; };
 		E63855061AD29115006CE900 /* screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = E63854E61AD29115006CE900 /* screenshot.png */; };
 		E63855071AD29115006CE900 /* slideshow.png in Resources */ = {isa = PBXBuildFile; fileRef = E63854E71AD29115006CE900 /* slideshow.png */; };
@@ -109,7 +108,6 @@
 		E63854E11AD29115006CE900 /* opera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opera.png; sourceTree = "<group>"; };
 		E63854E21AD29115006CE900 /* photoshop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photoshop.png; sourceTree = "<group>"; };
 		E63854E31AD29115006CE900 /* power.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = power.png; sourceTree = "<group>"; };
-		E63854E41AD29115006CE900 /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
 		E63854E51AD29115006CE900 /* recycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recycle.png; sourceTree = "<group>"; };
 		E63854E61AD29115006CE900 /* screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot.png; sourceTree = "<group>"; };
 		E63854E71AD29115006CE900 /* slideshow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slideshow.png; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 				E63854E11AD29115006CE900 /* opera.png */,
 				E63854E21AD29115006CE900 /* photoshop.png */,
 				E63854E31AD29115006CE900 /* power.png */,
-				E63854E41AD29115006CE900 /* preview.png */,
 				E63854E51AD29115006CE900 /* recycle.png */,
 				E63854E61AD29115006CE900 /* screenshot.png */,
 				E63854E71AD29115006CE900 /* slideshow.png */,
@@ -331,7 +328,6 @@
 				E63855011AD29115006CE900 /* opera.png in Resources */,
 				E63854F81AD29115006CE900 /* firefox.png in Resources */,
 				E63854961AD2819D006CE900 /* Main.storyboard in Resources */,
-				E63855041AD29115006CE900 /* preview.png in Resources */,
 				E638550B1AD29115006CE900 /* wmp.png in Resources */,
 				E63855071AD29115006CE900 /* slideshow.png in Resources */,
 				E63855031AD29115006CE900 /* power.png in Resources */,

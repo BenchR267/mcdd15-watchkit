@@ -18,9 +18,12 @@ class MainTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Einkaufsliste"
         navigationController?.navigationBar.barTintColor = UIColor(red: 65.0/255.0, green: 131.0/255.0, blue: 215.0/255.0, alpha: 1)
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        tableView.backgroundColor = UIColor.darkGrayColor()
+        
         items = fetchItemsFromDB()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "itemsChanged:", name: ITEMSCHANGEDNOTIFICATION, object: nil)
