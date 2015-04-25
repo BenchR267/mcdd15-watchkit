@@ -107,9 +107,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(application: UIApplication!, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]!, reply: (([NSObject : AnyObject]!) -> Void)!) {
+    func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
         
-        var request = userInfo["request"] as? String ?? ""
+        var request = userInfo?["request"] as? String ?? ""
         
         switch request {
         case "allItems":
@@ -119,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         case "newItem":
-            var itemDictionary = userInfo["parameter"] as? [String: AnyObject]
+            var itemDictionary = userInfo?["parameter"] as? [String: AnyObject]
             
             if let dic = itemDictionary {
                 WatchKitHandler.addNewItem(dic) { response in

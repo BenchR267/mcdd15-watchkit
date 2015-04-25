@@ -9,21 +9,15 @@ slidenumbers: true
 
 ---
 
-![](AppleWatchWerbung.mp4)
+![fit](watches.jpg)
 
 ---
 
 # Apple Watch
 
-- Neuartige Kategorie für Apple
-- Komplett neues Klientel
-- Neuartige Art der Software?
-
-^ 2 verschiedene Modelle (38mm und 42mm) mit unterschiedlichen Auflösungen
-
-^ 38mm: 340x272px
-
-^ 42mm: 390x312px
+- Neue Gerätekategorie für Apple
+- Neue Art der Kommunikation
+- Neue mobile Apps?!
 
 ---
 
@@ -49,11 +43,10 @@ slidenumbers: true
 
 # WatchKit
 
-- 2 Targets
-	- Extension
-	- App
-- Möglichkeit der Kommunikation mit iPhone App
-- App ist immer Teil einer iPhone App
+- 2 Bestandteile
+	- Storyboards und Assets
+	- WatchKit-Extension
+- Immer nur ein Bestandteil einer iOS-App
 
 ^ Extension beinhaltet Code, App nur das Storyboard
 
@@ -92,23 +85,6 @@ slidenumbers: true
 - Werden für alle Notifications automatisch erstellt
 - Eigene Controller können Extra-Content anzeigen
 - Actions müssen im Payload der Notification stehen
-
----
-
-# WKInterfaceController
-
-```Swift
-class InterfaceController: WKInterfaceController {
-    override func awakeWithContext(context: AnyObject?) { ... }
-
-    override func willActivate() { ... }
-
-    override func didDeactivate() { ... }
-
-    override func table(table: WKInterfaceTable, 
-    	didSelectRowAtIndex rowIndex: Int) { ... }
-}
-```
 
 ---
 
@@ -161,53 +137,59 @@ func application(application: UIApplication!,
 
 # Handoff!
 
+^ Handoff ist ein Dienst von Apple, der mehrere Apple-Geräte schnell und unkompliziert miteinander kommunizieren lässt.
+
+^ Nutzer befindet sich in bestimmten Kontext in der App und kann diesen Vorgang an der Stelle an anderem Gerät schnell fortführen.
+
 ^ Wenn möglich, Handoff unterstützen, damit der Nutzer schnell am iPhone weitermachen kann.
 
 ^ Sehr einfache Implementierung
 
 ---
 
-# Handoff
+# Besonderheiten in der Implementation
 
-- Watch 
-
-```Swift
-var userActivity = "Zeige Item in einer Liste"
-var userInfo = ["item": currentItem]
-updateUserActivity(userActivity, userInfo: userInfo,
-                               webpageURL: nil)
-```
-
-- iPhone
-
-```Swift
-func application(application: UIApplication,
-    willContinueUserActivityWithType userActivityType: String) -> Bool { ... }
-
-func application(application: UIApplication,
-    continueUserActivity userActivity: NSUserActivity,
-    restorationHandler: ([AnyObject]!) -> Void) -> Bool { ... }
-```
+- Animationen funktionieren, aber nur über Einzelframes
+- Extension ist Hintergrundtask auf iPhone
+- Länger dauernde Requests wie GPS oder Netzwerk immer über iPhone-App machen
+- Watch hat 5MB persistenten Speicher
 
 ---
 
-# Weitere Besonderheiten
+# Besonderheiten in der Implementation
 
-- Animationen funktionieren, aber nur über Einzelframes
-- Länger dauernde Requests wie GPS oder Netzwerk immer über iPhone-App machen
-- Extension ist Hintergrundtask auf iPhone
-- Watch hat internen Speicher. 5MB persistenter Cache pro App
+- Sehr kurze App-Nutzungsdauer
+- Daten können über App Group geteilt werden.
+- Code kann über embedded Frameworks geteilt werden
+- Im Asset Katalog können unterschiedliche Bilder für beide Modelle angegeben werden
 
-^ Wir befinden uns auf einem Gerät mit 18h Laufzeit. Möglichst wenig Funktionen, kurze App-Nutzungsdauer!
-
-^ Daten können über App Group geteilt werden.
-
-^ Code kann über embedded Frameworks geteilt werden. (Nur für neue Apps sinnvoll, weil sonst zu großes Refactoring)
-
-^ Im Asset Katalog können unterschiedliche Bilder für beide Modelle angegeben werden.
+^ (Nur für neue Apps sinnvoll, weil sonst zu großes Refactoring)
 
 ^ Interface kann über Size Classes unterschiedlich gestaltet werden.
 
 ---
 
-# Xcode
+# In welche Richtung sollten Watch Apps gehen?
+
+- Eher eine Art Ergänzung zur iPhone App
+- Unterstützung für Notifications
+- Schnelle, kurze und relevante Infos
+
+---
+
+# Zusammenfassung
+
+---
+
+# Zusammenfassung
+
+- Watch ist mehr eine Art "verlängertes" Display
+- Kein Zugriff auf Sensoren
+- Kein Mikrofon- oder Lautsprecherzugriff
+- Hoffen auf v2 und native SDK :)
+
+^ Es steckt durchaus sehr viel Potenzial drin!
+
+---
+
+# Diskussion
